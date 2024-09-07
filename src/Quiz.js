@@ -28,7 +28,7 @@ function Quiz() {
         } else {
             setIsCorrect(false);
         }
-        setTimeout(handleNextQuestion, 1000);
+        setTimeout(handleNextQuestion, 2000);
     };
 
     const handleNextQuestion = () => {
@@ -107,8 +107,9 @@ function Quiz() {
                         ))}
                     </div>
                     {selectedAnswer && (
-                        <div style={{ marginTop: '20px', fontSize: '24px' }}>
-                            {isCorrect ? 'Correct! 🎉' : 'Sorry, that is not right. 😢'}
+                        <div style={{ marginTop: '20px', fontSize: '24px', position: 'absolute', top: 20, right: 30 }}>
+                            {isCorrect ? <span style={{ padding: '18px 30px', backgroundColor: "green", borderRadius: '10px' }}>Correct! 🎉</span>
+                                : <span style={{ padding: '18px 30px', backgroundColor: "#FF6B6B", borderRadius: '10px' }}>Sorry, that is not right. 😢</span>}
                         </div>
                     )}
                     <div className='timer' style={{ fontSize: '24px', marginBottom: '30px', marginTop: '30px', fontWeight: '500' }}>Time left: {timeLeft}s</div>
