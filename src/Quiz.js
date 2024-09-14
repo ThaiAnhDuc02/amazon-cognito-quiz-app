@@ -21,27 +21,58 @@ function Quiz() {
         }
     }, [timeLeft, showScore, hasStarted]);
 
+    // const handleAnswerOptionClick = (option) => {
+    //     if (selectedAnswer === "") {
+    //         const correctAnswer = quizData[currentQuestion].answer;
+    //         setSelectedAnswer(option);
+    //         setUserAnswers(prevAnswers => {
+    //             const newAnswers = [...prevAnswers];
+    //             newAnswers[currentQuestion] = option;
+    //             return newAnswers;
+    //         });
+    //         if (option === correctAnswer) {
+    //             setScore(prevScore => prevScore + 1);
+    //             setIsCorrect(true);
+    //         } else {
+    //             setIsCorrect(false);
+    //         }
+    //         if (currentQuestion === quizData.length - 1) {
+    //             setTimeout(() => {
+    //                 setShowScore(true);
+    //             }, 2000);
+    //         } else {
+    //             setTimeout(handleNextQuestion, 500);
+    //         }
+    //     }
+    // };
     const handleAnswerOptionClick = (option) => {
         if (selectedAnswer === "") {
             const correctAnswer = quizData[currentQuestion].answer;
             setSelectedAnswer(option);
+
+            // Cập nhật câu trả lời của người dùng
             setUserAnswers(prevAnswers => {
                 const newAnswers = [...prevAnswers];
-                newAnswers[currentQuestion] = option;
+                newAnswers[currentQuestion] = option;  // Lưu đáp án đã chọn
                 return newAnswers;
             });
+
+            // Cập nhật điểm số
             if (option === correctAnswer) {
                 setScore(prevScore => prevScore + 1);
                 setIsCorrect(true);
             } else {
                 setIsCorrect(false);
             }
+
+            // Đảm bảo câu trả lời cuối cùng được lưu trước khi hiển thị điểm
             if (currentQuestion === quizData.length - 1) {
                 setTimeout(() => {
-                    setShowScore(true);
-                }, 2000);
+                    setShowScore(true);  // Hiển thị điểm nếu đây là câu cuối
+
+                }, 500);
             } else {
-                setTimeout(handleNextQuestion, 500);
+                setTimeout(handleNextQuestion, 500);  // Chuyển sang câu tiếp theo
             }
         }
     };
@@ -49,22 +80,20 @@ function Quiz() {
     const handleNextQuestion = () => {
         setUserAnswers(prevAnswers => {
             const newAnswers = [...prevAnswers];
-            if (newAnswers[currentQuestion] === undefined) {
-                newAnswers[currentQuestion] = "No answer";
+            if (!newAnswers[currentQuestion]) {
+                newAnswers[currentQuestion] = "No answer";  // Lưu "No answer" nếu người dùng không trả lời
             }
             return newAnswers;
         });
 
         const nextQuestion = currentQuestion + 1;
         if (nextQuestion < quizData.length) {
-            setCurrentQuestion(nextQuestion);
-            setIsCorrect(null);
-            setSelectedAnswer("");
-            setTimeLeft(20);
-        } else {
-
-            setShowScore(true);
+            setCurrentQuestion(nextQuestion);  // Chuyển sang câu tiếp theo
+            setIsCorrect(null);  // Reset trạng thái đúng/sai
+            setSelectedAnswer("");  // Reset lựa chọn câu trả lời
+            setTimeLeft(20);  // Reset thời gian
         }
+
     };
 
     const handleStartClick = () => {
@@ -75,7 +104,7 @@ function Quiz() {
             alert("Please enter your name before starting the quiz.");
         }
     };
-
+    console.log(userAnswers)
 
     const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A'];
 
