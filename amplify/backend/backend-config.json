@@ -1,4 +1,20 @@
 {
+  "api": {
+    "quizsApi": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "amazoncognitoquizapp5c3bc61b"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
   "auth": {
     "amazoncognitoquizapp83f0c838": {
       "customAuth": false,
@@ -25,6 +41,31 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
+    }
+  },
+  "function": {
+    "amazoncognitoquizapp5c3bc61b": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_amazoncognitoquizapp5c3bc61b_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "amazoncognitoquizapp5c3bc61b"
+        }
+      ]
+    },
+    "AMPLIFY_function_amazoncognitoquizapp5c3bc61b_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "amazoncognitoquizapp5c3bc61b"
+        }
+      ]
     }
   }
 }

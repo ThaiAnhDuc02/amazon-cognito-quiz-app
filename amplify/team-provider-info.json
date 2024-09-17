@@ -9,11 +9,21 @@
       "UnauthRoleName": "amplify-amazoncognitoquizapp-dev-092b1-unauthRole",
       "StackName": "amplify-amazoncognitoquizapp-dev-092b1",
       "StackId": "arn:aws:cloudformation:ap-southeast-1:730335321184:stack/amplify-amazoncognitoquizapp-dev-092b1/f616cb80-71d0-11ef-bd6a-02fc65a88fd5",
-      "AmplifyAppId": "d32e8e1liv7r8c"
+      "AmplifyAppId": "d32e8e1liv7r8c",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-amazoncognitoquizapp-dev-092b1-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "auth": {
         "amazoncognitoquizapp83f0c838": {}
+      },
+      "function": {
+        "amazoncognitoquizapp5c3bc61b": {
+          "deploymentBucketName": "amplify-amazoncognitoquizapp-dev-092b1-deployment",
+          "s3Key": "amplify-builds/amazoncognitoquizapp5c3bc61b-586930616d49794a6a53-build.zip"
+        }
+      },
+      "api": {
+        "quizsApi": {}
       }
     }
   }

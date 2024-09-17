@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { quizData, quizTitle } from './quizData';
+import { post } from 'aws-amplify/api';
 
 function Quiz() {
     const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -11,6 +12,7 @@ function Quiz() {
     const [hasStarted, setHasStarted] = useState(false);
     const [userName, setUserName] = useState("");
     const [userAnswers, setUserAnswers] = useState([]);
+    const [quizCompleted, setQuizCompleted] = useState(false);
 
     useEffect(() => {
         if (timeLeft > 0 && !showScore && hasStarted) {
@@ -21,43 +23,17 @@ function Quiz() {
         }
     }, [timeLeft, showScore, hasStarted]);
 
-    // const handleAnswerOptionClick = (option) => {
-    //     if (selectedAnswer === "") {
-    //         const correctAnswer = quizData[currentQuestion].answer;
-    //         setSelectedAnswer(option);
-    //         setUserAnswers(prevAnswers => {
-    //             const newAnswers = [...prevAnswers];
-    //             newAnswers[currentQuestion] = option;
-    //             return newAnswers;
-    //         });
-    //         if (option === correctAnswer) {
-    //             setScore(prevScore => prevScore + 1);
-    //             setIsCorrect(true);
-    //         } else {
-    //             setIsCorrect(false);
-    //         }
-    //         if (currentQuestion === quizData.length - 1) {
-    //             setTimeout(() => {
-    //                 setShowScore(true);
-    //             }, 2000);
-    //         } else {
-    //             setTimeout(handleNextQuestion, 500);
-    //         }
-    //     }
-    // };
     const handleAnswerOptionClick = (option) => {
         if (selectedAnswer === "") {
             const correctAnswer = quizData[currentQuestion].answer;
             setSelectedAnswer(option);
 
-            // Cập nhật câu trả lời của người dùng
             setUserAnswers(prevAnswers => {
                 const newAnswers = [...prevAnswers];
-                newAnswers[currentQuestion] = option;  // Lưu đáp án đã chọn
+                newAnswers[currentQuestion] = option;
                 return newAnswers;
             });
 
-            // Cập nhật điểm số
             if (option === correctAnswer) {
                 setScore(prevScore => prevScore + 1);
                 setIsCorrect(true);
@@ -65,14 +41,10 @@ function Quiz() {
                 setIsCorrect(false);
             }
 
-            // Đảm bảo câu trả lời cuối cùng được lưu trước khi hiển thị điểm
             if (currentQuestion === quizData.length - 1) {
-                setTimeout(() => {
-                    setShowScore(true);  // Hiển thị điểm nếu đây là câu cuối
-
-                }, 500);
+                setQuizCompleted(true);
             } else {
-                setTimeout(handleNextQuestion, 500);  // Chuyển sang câu tiếp theo
+                setTimeout(handleNextQuestion, 500);
             }
         }
     };
@@ -81,19 +53,20 @@ function Quiz() {
         setUserAnswers(prevAnswers => {
             const newAnswers = [...prevAnswers];
             if (!newAnswers[currentQuestion]) {
-                newAnswers[currentQuestion] = "No answer";  // Lưu "No answer" nếu người dùng không trả lời
+                newAnswers[currentQuestion] = "No answer";
             }
             return newAnswers;
         });
 
         const nextQuestion = currentQuestion + 1;
         if (nextQuestion < quizData.length) {
-            setCurrentQuestion(nextQuestion);  // Chuyển sang câu tiếp theo
-            setIsCorrect(null);  // Reset trạng thái đúng/sai
-            setSelectedAnswer("");  // Reset lựa chọn câu trả lời
-            setTimeLeft(20);  // Reset thời gian
+            setCurrentQuestion(nextQuestion);
+            setIsCorrect(null);
+            setSelectedAnswer("");
+            setTimeLeft(20);
+        } else {
+            setQuizCompleted(true);
         }
-
     };
 
     const handleStartClick = () => {
@@ -104,8 +77,66 @@ function Quiz() {
             alert("Please enter your name before starting the quiz.");
         }
     };
-    console.log(userAnswers)
 
+    // const handleSubmit = async () => {
+    //     // Thực hiện POST request ở đây
+    //     try {
+    //         const restOperation = post({
+    //             apiName: 'quizsApi',
+    //             path: '/items',
+    //             options: {
+    //                 body: {
+    //                     userName: userName,
+    //                     score: score,
+    //                     answers: userAnswers,
+    //                 },
+    //             }
+    //         })
+    //         const response = await restOperation.response;
+    //         const result = await response.body.json();
+
+    //         if (response.statusCode === 200) {
+    //             console.log('Quiz results submitted successfully', result);
+    //             setShowScore(true);
+    //         } else {
+    //             console.error('Failed to submit quiz results', result);
+    //         }
+    //     } catch (error) {
+    //         console.error('Error submitting quiz results:', error);
+    //     }
+    // };
+    const handleSubmit = async () => {
+        try {
+            const quizData = {
+                userName: userName,
+                score: score,
+                answers: userAnswers,
+            };
+            console.log('Submitting quiz data:', quizData);
+
+            const restOperation = await post({
+                apiName: 'quizsApi',
+                path: '/',
+                options: {
+                    body: quizData,
+                }
+            });
+
+            const response = await restOperation.response;
+            const result = await response.body.json();
+
+            console.log('API response:', result);
+
+            if (response.statusCode === 200) {
+                console.log('Quiz results submitted successfully', result);
+                setShowScore(true);
+            } else {
+                console.error('Failed to submit quiz results', result);
+            }
+        } catch (error) {
+            console.error('Error submitting quiz results:', error);
+        }
+    };
     const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A'];
 
     const renderResults = () => {
@@ -201,6 +232,23 @@ function Quiz() {
                         </div>
                     )}
                     <div className='timer' style={{ fontSize: '24px', marginBottom: '30px', marginTop: '30px', fontWeight: '500' }}>Time left: {timeLeft}s</div>
+                    {quizCompleted && (
+                        <button
+                            onClick={handleSubmit}
+                            style={{
+                                backgroundColor: '#4ECDC4',
+                                border: 'none',
+                                padding: '15px 30px',
+                                fontSize: '18px',
+                                cursor: 'pointer',
+                                color: 'white',
+                                borderRadius: '5px',
+                                marginTop: '20px',
+                            }}
+                        >
+                            Nộp bài
+                        </button>
+                    )}
                 </>
             )}
         </div>
