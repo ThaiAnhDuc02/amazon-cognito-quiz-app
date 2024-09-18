@@ -1,29 +1,22 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-amazoncognitoquizapp-dev-092b1-authRole",
-      "UnauthRoleArn": "arn:aws:iam::730335321184:role/amplify-amazoncognitoquizapp-dev-092b1-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::730335321184:role/amplify-amazoncognitoquizapp-dev-092b1-authRole",
+      "AuthRoleName": "amplify-amazoncognitoquizapp-dev-d10d1-authRole",
+      "UnauthRoleArn": "arn:aws:iam::730335321184:role/amplify-amazoncognitoquizapp-dev-d10d1-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::730335321184:role/amplify-amazoncognitoquizapp-dev-d10d1-authRole",
       "Region": "ap-southeast-1",
-      "DeploymentBucketName": "amplify-amazoncognitoquizapp-dev-092b1-deployment",
-      "UnauthRoleName": "amplify-amazoncognitoquizapp-dev-092b1-unauthRole",
-      "StackName": "amplify-amazoncognitoquizapp-dev-092b1",
-      "StackId": "arn:aws:cloudformation:ap-southeast-1:730335321184:stack/amplify-amazoncognitoquizapp-dev-092b1/f616cb80-71d0-11ef-bd6a-02fc65a88fd5",
-      "AmplifyAppId": "d32e8e1liv7r8c",
-      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-amazoncognitoquizapp-dev-092b1-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+      "DeploymentBucketName": "amplify-amazoncognitoquizapp-dev-d10d1-deployment",
+      "UnauthRoleName": "amplify-amazoncognitoquizapp-dev-d10d1-unauthRole",
+      "StackName": "amplify-amazoncognitoquizapp-dev-d10d1",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:730335321184:stack/amplify-amazoncognitoquizapp-dev-d10d1/d611c980-7553-11ef-89a8-02701ed9bbbd",
+      "AmplifyAppId": "d1ozwjmpbfj4ft"
     },
     "categories": {
       "auth": {
-        "amazoncognitoquizapp83f0c838": {}
+        "amazoncognitoquizappe8206333": {}
       },
       "function": {
-        "amazoncognitoquizapp5c3bc61b": {
-          "deploymentBucketName": "amplify-amazoncognitoquizapp-dev-092b1-deployment",
-          "s3Key": "amplify-builds/amazoncognitoquizapp5c3bc61b-586930616d49794a6a53-build.zip"
-        }
-      },
-      "api": {
-        "quizsApi": {}
+        "LambdaQuiz01": {}
       }
     }
   }

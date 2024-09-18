@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "amazoncognitoquizapp83f0c838_identitypool_83f0c838",
-    "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "amazon83f0c838",
-    "userPoolName": "amazoncognitoquizapp83f0c838_userpool_83f0c838",
+    "identityPoolName": "amazoncognitoquizappe8206333_identitypool_e8206333",
+    "allowUnauthenticatedIdentities": false,
+    "resourceNameTruncated": "amazone8206333",
+    "userPoolName": "amazoncognitoquizappe8206333_userpool_e8206333",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -31,10 +31,10 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "amazon83f0c838_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "amazone8206333_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "83f0c838",
-    "resourceName": "amazoncognitoquizapp83f0c838",
+    "sharedId": "e8206333",
+    "resourceName": "amazoncognitoquizappe8206333",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "default",
     "usernameAttributes": [
@@ -43,20 +43,6 @@
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
-    "useEnabledMfas": true,
-    "authRoleArn": {
-      "Fn::GetAtt": [
-        "AuthRole",
-        "Arn"
-      ]
-    },
-    "unauthRoleArn": {
-      "Fn::GetAtt": [
-        "UnauthRole",
-        "Arn"
-      ]
-    },
-    "breakCircularDependency": true,
-    "dependsOn": []
+    "useEnabledMfas": true
   }
 }

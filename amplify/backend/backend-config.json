@@ -1,6 +1,6 @@
 {
   "api": {
-    "quizsApi": {
+    "api1c0cfd79": {
       "dependsOn": [
         {
           "attributes": [
@@ -8,7 +8,7 @@
             "Arn"
           ],
           "category": "function",
-          "resourceName": "amazoncognitoquizapp5c3bc61b"
+          "resourceName": "LambdaQuiz01"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -16,7 +16,7 @@
     }
   },
   "auth": {
-    "amazoncognitoquizapp83f0c838": {
+    "amazoncognitoquizappe8206333": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -44,28 +44,30 @@
     }
   },
   "function": {
-    "amazoncognitoquizapp5c3bc61b": {
+    "LambdaQuiz01": {
       "build": true,
+      "dependsOn": [
+        {
+          "attributeEnvMap": {
+            "Arn": "TABLE_ARN",
+            "Name": "TABLE_NAME"
+          },
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "storage",
+          "resourceName": "QuizDB"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
-  "parameters": {
-    "AMPLIFY_function_amazoncognitoquizapp5c3bc61b_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "amazoncognitoquizapp5c3bc61b"
-        }
-      ]
-    },
-    "AMPLIFY_function_amazoncognitoquizapp5c3bc61b_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "amazoncognitoquizapp5c3bc61b"
-        }
-      ]
+  "storage": {
+    "QuizDB": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
     }
   }
 }
